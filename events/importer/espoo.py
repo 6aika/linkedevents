@@ -34,8 +34,10 @@ YSO_KEYWORD_MAPS = {  # TODO: Configurable
     u'Pelitapahtumat': u'p6062',  # -> pelit
     u'Satutunnit': u'p14710',
     u'Koululaiset': u'p16485',
-    u'Lasten ja nuorten tapahtumat': (u'p12262', u'p11617'), # -> lapset, nuoret
-    u'Lapset ja perheet': (u'p12262', u'p4363'),  # -> lapset, perheet
+    u'Lasten ja nuorten tapahtumat': u'p11617', # -> lapset, nuoret
+    u'Lapset ja perheet': u'p4363',  # -> lapset, perheet
+    # u'Lasten ja nuorten tapahtumat': (u'p12262', u'p11617'), # -> lapset, nuoret
+    # u'Lapset ja perheet': (u'p12262', u'p4363'),  # -> lapset, perheet
     u'Lukupiirit': u'p11406',  # -> lukeminen
     # u'Opastuskalenteri ': '?',
     # u'muut kielet': '?'
