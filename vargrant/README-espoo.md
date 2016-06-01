@@ -7,10 +7,20 @@ Linked eventsin (6Aika-versio) sekä haettua siihen
 * Toimipisterekisteristä pääkaupunkiseudun Placet
 * Espoon tapahtumat espoo.fi NC:n rajapinnasta
 
-```
-# Vagrant
-sudo locale-gen "en_GB.UTF-8"
+Aja tässä hakemistossa komennot
 
+```shell
+vagrant up
+vagrant ssh
+```
+
+Jos komennot suoritettiin loppuun asti onnistuneesti, niin sinulla pitäisi
+olla ssh-yhteys Ubuntu 14.04 virtuaalikoneeseen.
+
+Aja seuraavaksi virtuaalikoneessa seuraavat komennot.
+
+```shell
+# Vagrant
 # Oiotaan vähän mutkia ja tehdään linkedevents ja vagrant PostgreSQL superuserit
 sudo su - postgres -c "createuser -s linkedevents"
 sudo su - postgres -c "createuser -s vagrant"
