@@ -12,6 +12,11 @@ Linked Events provides categorized data on events and places. The project was or
 Installation
 ------------
 
+Prepare virtualenv
+
+     virtualenv -p /usr/bin/python3 ~/.virtualenvs/
+     workon linkedevents
+
 Install required Python packages
 
 ```
@@ -35,13 +40,14 @@ wget -O - http://api.hel.fi/linkedevents/static/linkedevents.dump.gz | gunzip -c
 sudo -u postgres psql linkedevents < linkedevents.dump
 ```
 
-Install city-specific HTML page templates for the browsable API by
+Finally, you may install city-specific HTML page templates for the browsable API by
 ```
-python manage.py install_templates
+python manage.py install_templates helevents
 ```
-By default, the HTML template contains Helsinki event data summary and license.
-You may edit templates/rest_framework/api.html.example to customize the page template
-for use in your favorite city. [Customizing the browsable API](http://www.django-rest-framework.org/topics/browsable-api/#customizing)
+This will install the `helevents/templates/rest_framework/api.html` template,
+which contains Helsinki event data summary and license. Customize the template
+for your favorite city by creating `your_favorite_city/templates/rest_framework/api.html`.
+[Customizing the browsable API](http://www.django-rest-framework.org/topics/browsable-api/#customizing)
 
 Running tests
 ------------

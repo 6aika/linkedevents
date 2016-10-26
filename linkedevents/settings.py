@@ -28,6 +28,7 @@ SITE_ID = 1
 INSTALLED_APPS = (
     'helusers',
     'django.contrib.sites',
+    'modeltranslation',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -42,7 +43,6 @@ INSTALLED_APPS = (
     'rest_framework',
     'rest_framework_jwt',
     'mptt',
-    'modeltranslation',
     'reversion',
     'haystack',
     'raven.contrib.django.raven_compat',
@@ -55,6 +55,7 @@ INSTALLED_APPS = (
 
     'helevents',
     'munigeo',
+    'leaflet',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -94,6 +95,9 @@ LANGUAGES = (
 LANGUAGE_CODE = 'fi'
 
 TIME_ZONE = 'Europe/Helsinki'
+
+MUNIGEO_COUNTRY = 'country:fi'
+MUNIGEO_MUNI = 'kunta:helsinki'
 
 SYSTEM_DATA_SOURCE_ID = 'system'
 
@@ -158,9 +162,11 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticatedOrReadOnly',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
+        'events.auth.ApiKeyAuthentication',
         'helusers.jwt.JWTAuthentication',
     ),
     'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.URLPathVersioning',
+    'VIEW_NAME_FUNCTION': 'events.api.get_view_name',
 }
 JWT_AUTH = {
     'JWT_PAYLOAD_GET_USER_ID_HANDLER': 'helusers.jwt.get_user_id_from_payload_handler',

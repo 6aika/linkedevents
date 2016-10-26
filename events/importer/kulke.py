@@ -23,6 +23,8 @@ from events.translation_utils import expand_model_fields
 LOCATION_TPREK_MAP = {
     'malmitalo': '8740',
     'malms kulturhus': '8740',
+    'malms bibliotek - malms kulturhus': '8192',
+    'helsingin kaupungintalo': '28473',
     'stoa': '7259',
     'kanneltalo': '7255',
     'vuotalo': '7260',
@@ -49,7 +51,7 @@ ADDRESS_TPREK_MAP = {
 }
 
 CATEGORIES_TO_IGNORE = [
-    286, 596, 614, 307, 632, 645, 675, 231, 616, 364, 325, 324, 319, 646, 640,
+    286, 596, 614, 307, 632, 645, 675, 231, 364, 325, 324, 319, 646, 640,
     641, 642, 643, 670, 671, 673, 674, 725, 312, 344, 365, 239, 240, 308, 623,
     229, 230, 323, 320, 357, 358, 728, 729, 730, 735, 736,
 
@@ -298,12 +300,17 @@ class KulkeImporter(Importer):
         description = ''
         if caption:
             description += caption
+            event['short_description'][lang] = caption
+        else:
+            event['short_description'][lang] = None
         if caption and bodytext:
             description += "\n\n"
         if bodytext:
             description += bodytext
         if description:
             event['description'][lang] = description
+        else:
+            event['description'][lang] = None
 
         event['info_url'][lang] = text_content('www')
         # todo: process extra links?
@@ -331,7 +338,11 @@ class KulkeImporter(Importer):
         if eventattachments is not None:
             for attachment in eventattachments:
                 if attachment.attrib['type'] == 'teaserimage':
-                    event['image'] = unicodetext(attachment).strip()
+                    # with the event_only license, the larger picture may be served
+                    event['image'] = unicodetext(attachment).strip().replace(
+                        '/MediumEventPic', '/EventPic'
+                    )
+                    event['image_license'] = 'event_only'
                     break
 
         event['provider'][lang] = text_content('organizer')
